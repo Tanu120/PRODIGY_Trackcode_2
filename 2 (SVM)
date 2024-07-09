@@ -1,0 +1,26 @@
+import pandas as pd
+
+# Load the data
+file_path = '/content/Mall_Customers.csv'
+data = pd.read_csv(file_path)
+
+# Display the first few rows of the data
+data.head() import pandas as pd
+from sklearn.cluster import KMeans
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+X = data[['Annual Income (k$)', 'Spending Score (1-100)']]
+
+# Apply K-means clustering
+kmeans = KMeans(n_clusters=5, random_state=42)
+data['Cluster'] = kmeans.fit_predict(X)
+
+# Plot the clusters
+plt.figure(figsize=(12, 6))
+sns.scatterplot(x='Annual Income (k$)', y='Spending Score (1-100)', hue='Cluster', data=data, palette='Set1', s=100)
+plt.title('Customer Segments')
+plt.xlabel('Annual Income (k$)')
+plt.ylabel('Spending Score (1-100)')
+plt.legend()
+plt.show()
